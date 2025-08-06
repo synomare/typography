@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有機的日本語組版システム</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="canvas-container">
+            <svg id="text-canvas" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <g id="text-layer"></g>
+                <g id="connection-layer"></g>
+            </svg>
+        </div>
+        
+        <div id="controls">
+            <div class="control-group">
+                <label>ズーム: <span id="zoom-value">1.0</span>x</label>
+                <input type="range" id="zoom-slider" min="0.1" max="10" step="0.1" value="1">
+            </div>
+            <div class="control-group">
+                <button id="play-growth">成長を開始</button>
+                <button id="pause-growth">一時停止</button>
+                <button id="reset-growth">リセット</button>
+            </div>
+            <div class="control-group">
+                <label>成長速度:</label>
+                <input type="range" id="speed-slider" min="1" max="100" value="50">
+            </div>
+            <div class="control-group">
+                <textarea id="text-input" placeholder="テキストを入力...">書籍という概念を初期化するための日本語組版システム。人間はエクリチュールを育ててきましたが、エクリチュールは人間を育ててきました。つまり本を初期化するということは、本と人間の共進化をやりなおすということです。</textarea>
+                <button id="load-text">テキストを読み込む</button>
+            </div>
+        </div>
+        
+        <div id="minimap">
+            <canvas id="minimap-canvas"></canvas>
+            <div id="viewport-indicator"></div>
+        </div>
+        
+        <div id="stats">
+            <div>文字数: <span id="char-count">0</span></div>
+            <div>ノード数: <span id="node-count">0</span></div>
+            <div>FPS: <span id="fps">0</span></div>
+        </div>
+    </div>
+    
+    <script src="js/SpatialIndex.js"></script>
+    <script src="js/OrganicLayout.js"></script>
+    <script src="js/Renderer.js"></script>
+    <script src="js/ViewportController.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
