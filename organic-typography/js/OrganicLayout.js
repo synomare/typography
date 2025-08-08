@@ -176,9 +176,13 @@ class OrganicLayout {
         return false;
     }
 
-    createBranch(parentNode, nearbyNodes) {
-        const branchAngle = Math.atan2(parentNode.velocity.dy, parentNode.velocity.dx) + 
-                          (Math.random() > 0.5 ? 1 : -1) * (Math.PI / 4 + Math.random() * Math.PI / 4);
+    createBranch(parentNode, nearbyNodes, angle = null) {
+        const branchAngle =
+            angle !== null
+                ? angle
+                : Math.atan2(parentNode.velocity.dy, parentNode.velocity.dx) +
+                  (Math.random() > 0.5 ? 1 : -1) *
+                      (Math.PI / 4 + Math.random() * Math.PI / 4);
         
         const branchNode = {
             id: `node_${this.nodes.length}`,
@@ -244,7 +248,7 @@ class OrganicLayout {
         }
         
         if (bestAngle !== null && maxDistance > 15) {
-            return this.createBranch(parentNode, nearbyNodes);
+            return this.createBranch(parentNode, nearbyNodes, bestAngle);
         }
         
         return null;
